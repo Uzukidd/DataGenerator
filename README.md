@@ -1,5 +1,11 @@
 ## DateGenerator
 
+## Change log by Uzukidd
+
+* fixed np.bool -> bool
+* swapped the order of actor spawning and ego vehicle spawning
+* add config 
+
 **简介**
 
 基于CARLA Simulator生成KITTI 2D/3D目标检测数据集格式的仿真数据集。除了对车辆和行人生成Label外，还对仿真环境中的20余种物体生成Label(树木、交通信号灯等）。
@@ -9,8 +15,6 @@
 **数据收集流程**
 
 ![image](https://user-images.githubusercontent.com/55339200/138204862-d4863c85-418b-4e4a-8db8-9efc7029635c.png)
-
-
 
 **数据集格式**
 
@@ -76,4 +80,3 @@ export_utils，保存数据的工具函数
 image_converter.py, 图片格式转换函数
 
 visual_utils，可视化工具函数
-

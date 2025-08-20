@@ -21,6 +21,13 @@ MAX_OUT_VERTICES_FOR_RENDER = cfg["FILTER_CONFIG"]["MAX_OUT_VERTICES_FOR_RENDER"
 WINDOW_WIDTH = cfg["SENSOR_CONFIG"]["DEPTH_RGB"]["ATTRIBUTE"]["image_size_x"]
 WINDOW_HEIGHT = cfg["SENSOR_CONFIG"]["DEPTH_RGB"]["ATTRIBUTE"]["image_size_y"]
 
+def merge_cyclist_label(data):
+    for agent, dt in data["agents_data"].items():
+        for desc in dt["kitti_datapoints"]:
+            if str(desc.type) in ["Motorcycle", "Bicycle"]:
+                desc.type = "Cyclist"
+    
+    return data
 
 def objects_filter(data):
     environment_objects = data["environment_objects"]
@@ -112,9 +119,9 @@ def obj_type(obj):
     if isinstance(obj, carla.EnvironmentObject):
         return obj.type
     else:
-        if obj.type_id.find('walker') is not -1:
+        if obj.type_id.find('walker') != -1:
             return 'Pedestrian'
-        if obj.type_id.find('vehicle') is not -1:
+        if obj.type_id.find('vehicle') != -1:
             return 'Car'
         return None
 
@@ -166,7 +173,7 @@ def transform_points(transform, points):
     # [[X0..,Xn],[Y0..,Yn],[Z0..,Zn],[1,..1]]  (4,8)
     points = np.append(points, np.ones((1, points.shape[1])), axis=0)
     # transform.get_matrix() 获取当前坐标系向相对坐标系的旋转矩阵
-    points = np.mat(transform.get_matrix()) * points
+    points = np.asmatrix(transform.get_matrix()) * points
     # 返回前三行
     return points[0:3].transpose()
 
