@@ -21,6 +21,22 @@ MAX_OUT_VERTICES_FOR_RENDER = cfg["FILTER_CONFIG"]["MAX_OUT_VERTICES_FOR_RENDER"
 WINDOW_WIDTH = cfg["SENSOR_CONFIG"]["DEPTH_RGB"]["ATTRIBUTE"]["image_size_x"]
 WINDOW_HEIGHT = cfg["SENSOR_CONFIG"]["DEPTH_RGB"]["ATTRIBUTE"]["image_size_y"]
 
+def kitti_label_filter(data, FILTER):
+    for agent, dt in data["agents_data"].items():
+        dt["kitti_datapoints"] = [desc for desc in dt["kitti_datapoints"] if str(desc.type) in FILTER]
+    
+    return data
+
+def reverse_rotation(data):
+    """
+        Convert Carla coordinate to Kitti coordinate
+    """
+    for agent, dt in data["agents_data"].items():
+        for desc in dt["kitti_datapoints"]:
+            desc.rotation_y = -desc.rotation_y
+    
+    return data
+
 def merge_cyclist_label(data):
     for agent, dt in data["agents_data"].items():
         for desc in dt["kitti_datapoints"]:
