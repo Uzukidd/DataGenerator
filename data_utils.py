@@ -138,7 +138,10 @@ def obj_type(obj):
         if obj.type_id.find('walker') != -1:
             return 'Pedestrian'
         if obj.type_id.find('vehicle') != -1:
-            return 'Car'
+            if int(obj.attributes["number_of_wheels"]) == 2:
+                return 'Cyclist'
+            else:
+                return 'Car'
         return None
 
 def get_relative_rotation_y(agent_rotation, obj_rotation):
