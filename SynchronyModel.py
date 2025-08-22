@@ -139,6 +139,12 @@ class SynchronyModel:
             # max speed
             self.world.get_actor(con_id).set_max_speed(10)
 
+        actor_list = self.world.get_actors()
+        for actor_id in self.actors["walkers"]:
+            actor = actor_list.find(actor_id)
+            actor.set_collisions(True)
+            actor.set_simulate_physics(True)
+
     def spawn_agent(self):
         vehicle_bp = random.choice(self.world.get_blueprint_library().filter(self.cfg["AGENT_CONFIG"]["BLUEPRINT"]))
         trans_cfg = self.cfg["AGENT_CONFIG"]["TRANSFORM"]
