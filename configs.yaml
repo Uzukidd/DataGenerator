@@ -29,9 +29,10 @@ FILTER_CONFIG:
   MAX_OUT_VERTICES_FOR_RENDER: 5
 
 KITTI_CONFIG:
-  LABELS: ["Car", "Cyclist", "Pedestrian"]
+  LABELS: ["Car", "Cyclist", "Pedestrian", "Truck", "Bus", "Van"]
 
 SAVE_CONFIG:
   ROOT_PATH: data/test
   USE_CYCLIST_LABEL: True
+  MERGE_CAR_LABEL: False
   STEP: 20

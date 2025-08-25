@@ -4,7 +4,9 @@
 
 * fixed np.bool -> bool
 * swapped the order of actor spawning and ego vehicle spawning
-* add config 
+* add config kitti label converting
+* add new type truck, van, bus
+* fix mismatching between carla coordinate and kitti coordinate
 
 **简介**
 

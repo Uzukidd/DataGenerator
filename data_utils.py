@@ -37,6 +37,14 @@ def reverse_rotation(data):
     
     return data
 
+def merge_car_label(data):
+    for agent, dt in data["agents_data"].items():
+        for desc in dt["kitti_datapoints"]:
+            if str(desc.type) in ["Car", "Truck", "Bus", "Van"]:
+                desc.type = "Car"
+    
+    return data
+
 def merge_cyclist_label(data):
     for agent, dt in data["agents_data"].items():
         for desc in dt["kitti_datapoints"]:
@@ -138,10 +146,20 @@ def obj_type(obj):
         if obj.type_id.find('walker') != -1:
             return 'Pedestrian'
         if obj.type_id.find('vehicle') != -1:
-            if int(obj.attributes["number_of_wheels"]) == 2:
-                return 'Cyclist'
-            else:
+            if obj.attributes["base_type"] == "car":
                 return 'Car'
+            elif obj.attributes["base_type"] == "truck":
+                return 'Truck'
+            elif obj.attributes["base_type"] == "bus":
+                return 'Bus'
+            elif obj.attributes["base_type"] == "van":
+                return 'Van'
+            elif obj.attributes["base_type"] == "bicycle":
+                return 'Bicycle'
+            elif obj.attributes["base_type"] == "motorcycle":
+                return 'Motorcycle'
+            
+            return 'Car'
         return None
 
 def get_relative_rotation_y(agent_rotation, obj_rotation):
