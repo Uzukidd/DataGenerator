@@ -20,7 +20,7 @@ SENSOR_CONFIG:
   LIDAR:
     TRANSFORM: { location: [ 0, 0, 1.6 ], rotation: [ 0, 0, 0 ] }
     BLUEPRINT: sensor.lidar.ray_cast
-    ATTRIBUTE: {range: 70, rotation_frequency: 20, lower_fov: -45, points_per_second: 1280000, channels: 64}
+    ATTRIBUTE: {range: 70, rotation_frequency: 20, lower_fov: -45, points_per_second: 3300000, channels: 64}
 
 FILTER_CONFIG:
   PRELIMINARY_FILTER_DISTANCE: 50

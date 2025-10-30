@@ -53,9 +53,9 @@ def save_lidar_data(filename, point_cloud, format="bin"):
     if format == "bin":
         point_cloud = np.copy(np.frombuffer(point_cloud.raw_data, dtype=np.dtype('f4')))
         point_cloud = np.reshape(point_cloud, (int(point_cloud.shape[0] / 4), 4))
-        point_cloud = point_cloud[:, :-1]
+        # point_cloud = point_cloud[:, :-1]
 
-        lidar_array = [[point[0], -point[1], point[2], 1.0]
+        lidar_array = [[point[0], -point[1], point[2], point[3]]
                        for point in point_cloud]
         lidar_array = np.array(lidar_array).astype(np.float32)
         logging.debug("Lidar min/max of x: {} {}".format(
