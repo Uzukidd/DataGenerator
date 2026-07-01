@@ -267,7 +267,7 @@ def point_in_canvas(pos):
 
 
 def point_is_occluded(point, vertex_depth, depth_image):
-    y, x = map(int, point)
+    y, x = int(point[0].item()), int(point[1].item())
     from itertools import product
     neigbours = product((1, -1), repeat=2)
     is_occluded = []
@@ -341,8 +341,8 @@ def distance_between_locations(location1, location2):
 def calc_projected_2d_bbox(vertices_pos2d):
     """ 根据八个顶点的图片坐标，计算二维bbox的左上和右下的坐标值 """
     legal_pos2d = list(filter(lambda x: x is not None, vertices_pos2d))
-    y_coords, x_coords = [int(x[0][0]) for x in legal_pos2d], [
-        int(x[1][0]) for x in legal_pos2d]
+    y_coords, x_coords = [int(x[0].item()) for x in legal_pos2d], [
+        int(x[1].item()) for x in legal_pos2d]
     min_x, max_x = min(x_coords), max(x_coords)
     min_y, max_y = min(y_coords), max(y_coords)
     return [min_x, min_y, max_x, max_y]

@@ -95,7 +95,7 @@ class KittiDescriptor:
             KITTI:-X  -Y   Z
         """
         # Object location is four values (x, y, z, w). We only care about three of them (xyz)
-        x, y, z = [float(x) for x in obj_location][0:3]
+        x, y, z = [float(x.item()) for x in obj_location][0:3]
         assert None not in [
             self.extent, self.type], "Extent and type must be set before location!"
 
